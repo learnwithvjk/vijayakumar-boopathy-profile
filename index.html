@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vijayakumar Boopathy</title>
+  <meta name="description" content="Backend engineer with AI-aware development skills, distributed systems experience, and modern software engineering projects." />
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --panel: rgba(15,20,32,.72);
+      --text: #f4f7fb;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.10);
+      --accent: #7fb2ff;
+      --accent2: #c5a06d;
+      --shadow: 0 18px 60px rgba(0,0,0,.24);
+      --bg-grad: radial-gradient(circle at top, rgba(72,104,164,.18), transparent 35%), linear-gradient(180deg, #0b0f17 0%, #090c12 100%);
+      --glow1: radial-gradient(circle, rgba(127,178,255,.18), transparent 68%);
+      --glow2: radial-gradient(circle, rgba(197,160,109,.14), transparent 68%);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-grad);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 22px 20px 46px; }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 6px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .brand { font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tab {
+      border: 1px solid var(--line); background: rgba(255,255,255,.08); color: var(--text);
+      border-radius: 999px; padding: 10px 15px; cursor: pointer; font: inherit;
+      transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease, box-shadow .16s ease;
+    }
+    .tab:hover { transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .tab.active { background: var(--text); color: var(--bg); border-color: transparent; box-shadow: 0 10px 26px rgba(0,0,0,.22); }
+    .panel { display: none; animation: fade .28s ease; }
+    .panel.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(10px) scale(.99); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+    .hero-grid, .grid { display: grid; gap: 18px; }
+    .hero-grid { grid-template-columns: 1.4fr .9fr; align-items: start; }
+    .card {
+      background: var(--panel); backdrop-filter: blur(14px); box-shadow: 0 20px 70px rgba(0,0,0,.28);
+      border: 1px solid var(--line); border-radius: 22px; padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 26px 80px rgba(0,0,0,.34); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+    .kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; margin-bottom: 14px; }
+    h1 { font-size: clamp(2.4rem, 5.5vw, 4.8rem); line-height: 1.02; margin: 0 0 18px; letter-spacing: -0.045em; }
+    p { margin: 0 0 12px; }
+    .lede { font-size: 1.02rem; max-width: 62ch; color: var(--muted); }
+    .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; padding: 11px 16px;
+      border-radius: 999px; text-decoration: none; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text);
+      transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease, box-shadow .16s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.10); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); box-shadow: 0 16px 34px rgba(0,0,0,.22); }
+    .btn:active { transform: translateY(-1px) scale(.99); }
+    .btn.primary { background: var(--accent); color: var(--bg); border-color: transparent; }
+    .btn.primary:hover { background: color-mix(in srgb, var(--accent) 92%, white 8%); }
+    .meta { color: var(--muted); font-size: .96rem; }
+    .stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; font-size: .88rem; background: rgba(255,255,255,.06); }
+    .pill.skill {
+      position: relative;
+      cursor: default;
+      user-select: none;
+      outline: none;
+    }
+    .pill.skill:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 32%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    }
+    .pill .skill-rating {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 10px);
+      transform: translateX(-50%) translateY(4px);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--panel) 92%, black 8%);
+      padding: 8px 10px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.34);
+      transition: opacity .14s ease, transform .14s ease;
+      z-index: 5;
+    }
+    .pill .skill-rating::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: inherit;
+      border-left: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+    }
+    .pill.skill:hover .skill-rating,
+    .pill.skill:focus-visible .skill-rating {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .skill-rating .stars { color: var(--accent2); letter-spacing: .14em; font-size: .92rem; }
+    .skill-rating .label { display: block; margin-top: 2px; font-size: .78rem; color: var(--muted); letter-spacing: .02em; }
+    .section-title { font-size: 1rem; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin: 0 0 14px; }
+    .timeline { display: grid; gap: 16px; }
+    .item { padding: 18px 0; border-top: 1px solid var(--line); }
+    .item:first-child { border-top: 0; padding-top: 0; }
+    .item h3, .project h3 { margin: 0 0 8px; }
+    .role { color: var(--accent2); font-size: .9rem; text-transform: uppercase; letter-spacing: .08em; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .project p { color: var(--muted); }
+    .contact a { color: var(--text); text-decoration: none; }
+    .contact a:hover { color: var(--accent); }
+    .contact .lede { margin-bottom: 18px; }
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+    }
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      padding: 1px;
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--accent) 55%, transparent),
+        color-mix(in srgb, var(--accent2) 45%, transparent) 55%,
+        color-mix(in srgb, var(--accent) 40%, transparent)
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: .85;
+    }
+    .contact-card::after {
+      content: "";
+      position: absolute;
+      inset: -30% -10% auto -10%;
+      height: 240px;
+      background: radial-gradient(circle at 30% 30%,
+        color-mix(in srgb, var(--accent) 22%, transparent),
+        transparent 60%
+      );
+      pointer-events: none;
+      filter: blur(2px);
+      opacity: .9;
+    }
+    .contact-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .contact-title {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .contact-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      transition: transform .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease;
+      min-width: 0;
+    }
+    [data-theme="light"] .contact-item { background: rgba(18,18,18,.03); }
+    .contact-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.08);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--accent) 22%, transparent),
+        rgba(255,255,255,.04)
+      );
+    }
+    .contact-icon svg { width: 18px; height: 18px; color: var(--text); opacity: .92; }
+    .contact-body { min-width: 0; }
+    .contact-label {
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+    .contact-value { margin: 0; font-size: 1rem; }
+    .contact-value a {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-bottom: 1px dashed color-mix(in srgb, var(--muted) 40%, transparent);
+    }
+    .contact-value a:hover { border-bottom-color: color-mix(in srgb, var(--accent) 65%, transparent); }
+    .contact-hint { margin: 12px 0 0; color: var(--muted); font-size: .94rem; position: relative; z-index: 1; }
+    @media (max-width: 720px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-head { flex-direction: column; align-items: stretch; }
+    }
+    .footer { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+    [data-theme="light"] {
+      --bg: #f6f2eb;
+      --panel: rgba(255,255,255,.86);
+      --text: #121212;
+      --muted: #5f5b55;
+      --line: rgba(18,18,18,.12);
+      --accent: #1f4f82;
+      --accent2: #7a5c3c;
+      --shadow: 0 18px 52px rgba(17,17,17,.10);
+      --bg-grad: radial-gradient(circle at top, rgba(31,79,130,.12), transparent 38%), linear-gradient(180deg, #fbfaf7 0%, #f3efe8 100%);
+      --glow1: radial-gradient(circle, rgba(31,79,130,.14), transparent 70%);
+      --glow2: radial-gradient(circle, rgba(122,92,60,.10), transparent 70%);
+    }
+    .theme-toggle{
+      width: 42px; height: 42px; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(255,255,255,.08); color: var(--text);
+      cursor: pointer; font: inherit; display: inline-flex; align-items: center; justify-content: center;
+      transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease, box-shadow .16s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); box-shadow: 0 14px 28px rgba(0,0,0,.20); }
+    .theme-toggle:active { transform: translateY(0) scale(.99); }
+    .glow { position: fixed; inset: auto auto 12% 8%; width: 280px; height: 280px; border-radius: 50%; background: var(--glow1); pointer-events: none; filter: blur(10px); animation: float 7s ease-in-out infinite; }
+    .glow.two { inset: 10% 6% auto auto; width: 220px; height: 220px; background: var(--glow2); animation-duration: 9s; }
+    @keyframes float { 0%,100% { transform: translateY(0px) translateX(0px); } 50% { transform: translateY(-16px) translateX(10px); } }
+    @media (max-width: 860px) {
+      .hero-grid, .grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.2rem, 10vw, 4rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tab, .btn, .card, .theme-toggle { transition: none !important; }
+      .glow { animation: none !important; }
+      .panel { animation: none !important; }
+    }
+  </style>
+</head>
+<body><div class="glow"></div><div class="glow two"></div>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Vijayakumar Boopathy</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">◐</button>
+      <div class="tabs" role="tablist" aria-label="Site sections">
+        <button class="tab active" data-tab="about">About</button>
+        <button class="tab" data-tab="work">Work</button>
+        <button class="tab" data-tab="projects">Projects</button>
+        <button class="tab" data-tab="contact">Contact</button>
+      </div>
+      </div>
+    </header>
+
+    <section class="panel active" id="about">
+      <div class="hero-grid">
+        <section>
+          <div class="kicker">Lead Engineer • Full-stack • AI-aware</div>
+          <h1>Designing full-stack products, distributed systems, and AI-assisted workflows.</h1>
+          <p class="lede">I am a Lead Engineer with full-stack experience across frontend architecture, backend services, microservices, APIs, distributed systems, cloud migration, and enterprise automation. I also use modern AI tools in a controlled, engineering-first way to accelerate testing, mock data, code review, and workflow automation.</p>
+          <div class="links">
+            <a class="btn primary" href="mailto:vijay007kumar.vk@gmail.com">Email me</a>
+            <a class="btn" href="https://www.linkedin.com/in/vijayakumar-boopathy-54b0b81b8/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="https://github.com/learnwithvjk" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="https://leetcode.com/u/learnwithvjk2/" target="_blank" rel="noreferrer">LeetCode</a>
+            <a class="btn" href="https://docs.google.com/document/d/e/2PACX-1vTp4ufkWye6vTjN3kOq9uCm7TvfYmwgKRahQdnbcdNXTESUGwD2LldNM9NrngBVvg/pub" target="_blank" rel="noreferrer">Resume</a>
+          </div>
+        </section>
+        <aside class="card">
+          <div class="section-title">At a glance</div>
+          <div class="meta">Full-stack engineer with AI fluency.</div>
+          <div class="stack">
+            <span class="pill skill" tabindex="0" data-skill="Java" data-rating="5">Java</span>
+            <span class="pill skill" tabindex="0" data-skill="Python" data-rating="3">Python</span>
+            <span class="pill skill" tabindex="0" data-skill="Spring Boot" data-rating="4">Spring Boot</span>
+            <span class="pill skill" tabindex="0" data-skill="Vue.js" data-rating="5">Vue.js</span>
+            <span class="pill skill" tabindex="0" data-skill="React Native" data-rating="2">React Native</span>
+            <span class="pill skill" tabindex="0" data-skill="Quasar" data-rating="4">Quasar</span>
+            <span class="pill skill" tabindex="0" data-skill="Spark" data-rating="5">Spark</span>
+            <span class="pill skill" tabindex="0" data-skill="Kafka" data-rating="4">Kafka</span>
+            <span class="pill skill" tabindex="0" data-skill="AWS" data-rating="4">AWS</span>
+            <span class="pill skill" tabindex="0" data-skill="GCP" data-rating="4">GCP</span>
+            <span class="pill skill" tabindex="0" data-skill="LangChain" data-rating="2">LangChain</span>
+            <span class="pill skill" tabindex="0" data-skill="OpenAI" data-rating="2">OpenAI</span>
+            <span class="pill skill" tabindex="0" data-skill="n8n" data-rating="2">n8n</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel" id="work">
+      <div class="card">
+        <div class="section-title">Selected work</div>
+        <div class="timeline">
+          <div class="item">
+            <div class="role">Nitor Info Tech • Lead Engineer • TransUnion</div>
+            <h3>Backend engineering, distributed data, and reporting workflows</h3>
+            <p>Developed REST services in microservices-based enterprise systems, improved big data execution by 4x with Spark, and re-designed reporting frameworks to support multimodal report generation.</p>
+          </div>
+          <div class="item">
+            <div class="role">Indhu Consultancy • Founder & Software Consultant</div>
+            <h3>Consulting, delivery, and multi-domain software solutions</h3>
+            <p>Led custom software engagements across insurance, SaaS, healthcare, and video-conferencing domains while managing architecture, delivery, and post-deployment support.</p>
+          </div>
+          <div class="item">
+            <div class="role">Zoho Corporation • Member Technical Staff</div>
+            <h3>Integrations, synchronization, and product modernization</h3>
+            <p>Built OAuth and REST integrations, improved synchronization with Kafka, helped establish the frontend foundation for Zoho Marketing Automation 2.0, and delivered frontend architecture and reusable components across client applications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="projects">
+      <div class="grid">
+        <div class="card project">
+          <div class="section-title">Projects</div>
+          <h3>AI Job Application Automation</h3>
+          <p>Personal project using LangChain, OpenRouter, OpenAI, ChromaDB, Python, and Browser-use to automate job search and application workflows.</p>
+        </div>
+        <div class="card project">
+          <div class="section-title">Projects</div>
+          <h3>Video Generation + YouTube Automation</h3>
+          <p>Currently building an orchestration workflow with n8n, Sarvam AI, and Google Gemini APIs for automated video generation and publishing.</p>
+        </div>
+        <div class="card project">
+          <div class="section-title">Projects</div>
+          <h3>Controlled Vibe Coding Workflow</h3>
+          <p>Uses AI tools such as Cline, Kilo, Continue.dev, and OneTru-Assist with precise instructions for tests, mock data, suggestions, and Sonar fixes.</p>
+        </div>
+        <div class="card project">
+          <div class="section-title">Focus</div>
+          <h3>Engineering for backend and frontend roles</h3>
+          <p>Built for full-stack, platform, and AI-aware opportunities that value practical execution, UI architecture, system thinking, and strong delivery ownership.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="contact">
+      <div class="card contact contact-card">
+        <div class="contact-head">
+          <div class="contact-title">
+            <div class="section-title">Contact</div>
+            <p class="lede">Let’s collaborate on backend, platform, and AI-aware engineering work.</p>
+          </div>
+        </div>
+
+        <div class="contact-grid" role="list">
+          <div class="contact-item" role="listitem">
+            <div class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4.5 7.5h15v9a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="m5.2 8.2 6.1 5a1.2 1.2 0 0 0 1.4 0l6.1-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="contact-body">
+              <p class="contact-label">Email</p>
+              <p class="contact-value"><a href="mailto:vijay007kumar.vk@gmail.com">vijay007kumar.vk@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item" role="listitem">
+            <div class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 9v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M7 7.2a.9.9 0 0 0 0-1.8.9.9 0 0 0 0 1.8Z" fill="currentColor"/>
+                <path d="M11 19v-6.2c0-1.8 1-2.8 2.5-2.8 1.4 0 2.2.9 2.2 2.7V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11 12.1v-3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="contact-body">
+              <p class="contact-label">LinkedIn</p>
+              <p class="contact-value">
+                <a href="https://www.linkedin.com/in/vijayakumar-boopathy-54b0b81b8/" target="_blank" rel="noreferrer">linkedin.com/in/vijayakumar-boopathy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-item" role="listitem">
+            <div class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8.5 17.5a3 3 0 0 1-3-3V9.5a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M10 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="m16.5 9.5 2.5 2.5-2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="contact-body">
+              <p class="contact-label">LeetCode</p>
+              <p class="contact-value">
+                <a href="https://leetcode.com/u/learnwithvjk2/" target="_blank" rel="noreferrer">leetcode.com/u/learnwithvjk2</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-item" role="listitem">
+            <div class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7.5 4.5h6.8l2.2 2.2v12.8a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M14.3 4.5V7a2 2 0 0 0 2 2h2.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.2 12h6.6M8.2 15.3h6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="contact-body">
+              <p class="contact-label">Resume</p>
+              <p class="contact-value">
+                <a href="https://docs.google.com/document/d/1auRkgLBaAVwk7QSZfjn8HLDDBXBQrMy8/export?format=pdf" download="Vijayakumar_Resume.pdf">Download PDF</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="contact-hint">Prefer email for fastest response. I’m happy to share work samples and references on request.</p>
+      </div>
+    </section>
+
+    <div class="footer">© 2026 Vijayakumar Boopathy. This site was vibe-coded for a polished visitor experience.</div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    }));
+
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    const stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+
+    const syncToggleIcon = () => {
+      themeToggle.textContent = root.getAttribute('data-theme') === 'light' ? '☀' : '◐';
+    };
+    syncToggleIcon();
+
+    themeToggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      syncToggleIcon();
+    });
+
+    const renderStars = (rating) => {
+      const r = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+      return '★'.repeat(r) + '☆'.repeat(5 - r);
+    };
+
+    const ratingToLevel = (rating) => {
+      const r = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+      switch (r) {
+        case 1: return 'Beginner';
+        case 2: return 'Elementary';
+        case 3: return 'Intermediate';
+        case 4: return 'Proficient';
+        case 5: return 'Expert';
+        default: return 'Familiar';
+      }
+    };
+
+    document.querySelectorAll('.pill.skill[data-rating]').forEach((el) => {
+      if (el.querySelector('.skill-rating')) return;
+      const rating = el.getAttribute('data-rating');
+      const skill = el.getAttribute('data-skill') || el.textContent.trim();
+      const level = ratingToLevel(rating);
+      const tip = document.createElement('span');
+      tip.className = 'skill-rating';
+      tip.setAttribute('role', 'tooltip');
+      tip.innerHTML = `<span class="stars" aria-hidden="true">${renderStars(rating)}</span><span class="label">${skill} • ${level}</span>`;
+      el.appendChild(tip);
+      el.setAttribute('aria-label', `${skill}: ${level}`);
+    });
+  </script>
+
+</body>
+</html>
